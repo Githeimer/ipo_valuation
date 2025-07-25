@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CSV Profit Tracker</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 90%;
+            margin: 20px auto;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+        th {
+            background-color: #222;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        tr:nth-child(odd) {
+            background-color: white;
+        }
+        body {
+            font-family: sans-serif;
+            text-align: center;
+        }
+        .profit {
+            background-color: green;
+            color: white;
+            padding: 5px;
+            border-radius: 3px;
+        }
+        .loss {
+            background-color: red;
+            color: white;
+            padding: 5px;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body>
+    <h1>CSV Profit Tracker</h1>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <label>Select WACC CSV:</label>
+        <input type="file" name="wacc_file" required>
+        <br><br>
+        <label>Select Portfolio CSV:</label>
+        <input type="file" name="portfolio_file" required>
+        <br><br>
+        <button type="submit">Upload and Calculate</button>
+    </form>
+    
+    {% if table_html %}
+        <h2>Results</h2>
+        {{ table_html|safe }}
+        
+        <div style="margin: 20px 0; font-size: 18px; font-weight: bold;">
+            <h3>Portfolio Summary:</h3>
+            <p>Total Initial Investment: <span style="color: #333;">Rs. {{ total_investment }}</span></p>
+            <p>Total Current Value: <span style="color: #333;">Rs. {{ total_current_value }}</span></p>
+            <p>Total Profit/Loss (after 5% cut on gains):
+                <span class="{% if is_profit %}profit{% else %}loss{% endif %}">
+                    Rs. {{ total_profit }}
+                </span>
+            </p>
+        </div>
+    {% endif %}
+</body>
+</html>
