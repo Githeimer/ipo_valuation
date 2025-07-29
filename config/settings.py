@@ -116,7 +116,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
 STATIC_URL = 'static/'
-ALLOWED_HOSTS = ['ipo-valuation.onrender.com']
+ALLOWED_HOSTS = ['ipo-valuation.onrender.com','ipo-valuation.vercel.app']
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
